@@ -11771,6 +11771,64 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;</span>
+<span class="s1">code_show=true; </span>
+<span class="s1">function code_toggle() {</span>
+<span class="s1"> if (code_show){</span>
+<span class="s1"> $(&#39;div.input&#39;).hide();</span>
+<span class="s1"> } else {</span>
+<span class="s1"> $(&#39;div.input&#39;).show();</span>
+<span class="s1"> }</span>
+<span class="s1"> code_show = !code_show</span>
+<span class="s1">} </span>
+<span class="s1">$( document ).ready(code_toggle);</span>
+<span class="s1">&lt;/script&gt;</span>
+<span class="s1">&lt;form action=&quot;javascript:code_toggle()&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Hide/Show code blocks&quot;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[1]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<script>
+code_show=true; 
+function code_toggle() {
+ if (code_show){
+ $('div.input').hide();
+ } else {
+ $('div.input').show();
+ }
+ code_show = !code_show
+} 
+$( document ).ready(code_toggle);
+</script>
+<form action="javascript:code_toggle()"><input type="submit" value="Hide/Show code blocks"></form>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11796,7 +11854,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[235]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -11823,7 +11881,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[237]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#OSM downloaded from openstreetmap</span>
@@ -11844,7 +11902,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[259]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Regular expressions</span>
@@ -11856,9 +11914,43 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Auditing-and-counting-the-Tag-Types">Auditing and counting the Tag Types<a class="anchor-link" href="#Auditing-and-counting-the-Tag-Types">&#182;</a></h3><p>In order to audit the data I had to find out which type of tags existed within the file. I used the <strong>summary_Tags.py</strong> code to iteratively parse through the file and return tag type as well as count for each tag.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>def count_tags(filename):</p>
+
+<pre><code>"""  
+Parses through tags and adds tag to dictionary  
+    after calling the add_tag function  
+    Args: 
+        file: .osm file containing the OpenStreetMap data 
+
+    Returns: 
+        tag_names: Dictionary containing tag type and count 
+""" 
+
+counts = defaultdict(int)
+for line in ET.iterparse(filename):
+    current = line[1].tag
+    counts[current] += 1
+return counts</code></pre>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[242]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">count_tags</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -11901,13 +11993,15 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>defaultdict(&lt;class &#39;int&#39;&gt;,
             {&#39;bounds&#39;: 1,
-             &#39;member&#39;: 1913,
-             &#39;nd&#39;: 20172,
-             &#39;node&#39;: 16082,
+             &#39;member&#39;: 68662,
+             &#39;meta&#39;: 1,
+             &#39;nd&#39;: 618229,
+             &#39;node&#39;: 412798,
+             &#39;note&#39;: 1,
              &#39;osm&#39;: 1,
-             &#39;relation&#39;: 62,
-             &#39;tag&#39;: 12824,
-             &#39;way&#39;: 2110})
+             &#39;relation&#39;: 1745,
+             &#39;tag&#39;: 562697,
+             &#39;way&#39;: 71682})
 </pre>
 </div>
 </div>
@@ -11920,24 +12014,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After reading through the OpenStreetMap Wiki I learned that data primitives for this data are nodes, ways, and relations.</p>
-<p>For the purposes of this project, I will be looking at the node and way tags of this data set. Nodes are defined as a single point in space and is defined by longitude, latitude, and node id. Ways are an ordered list of nodes that either define a region, closed node, or some linear feature, open node.</p>
-<h3 id="Auditing-the-k-Tags">Auditing the k Tags<a class="anchor-link" href="#Auditing-the-k-Tags">&#182;</a></h3><p>Another area of interest was looking at the different 'k' tags in the data. I used three regular expressions to filter these tags and look for any problems that might have to be remedied before importing the data into a database. The first looks for tags with only lowercase letters, the second for lowercase letters separated by a colon, and the last flags any unwanted characters.</p>
-<p>As we can see, the major elements are member, nd, node, relation, tag and way. We will audit these elements, clean them and store them in csv in order to be stored in SQLLITE</p>
-<p>Now, we want to check whether "k" value for each "&lt; tag &gt;" has any issue or not. To see this, we divided the key type in four categories:
-•"lower", for tags that contain only lowercase letters and are valid 
-•"lower_colon", for otherwise valid tags with a colon in their names 
-•"problemchars", for tags with problematic characters, and
-•"other", for other tags that do not fall into the other three categories.
-I then used the iterparse method of ElementTree to compile a list of tags that fell into one of the three regular expression matches above.</p>
-<p>We check this using the regex expressions and write in a separate file. Then we write the unique key tags belonging to each category in the respective file for later observation.</p>
+<p>The following code takes a systematic sample of elements from the original OSM region. We can change the value of k so that the resulting SAMPLE_FILE ends up at different sizes. The <strong>create_sample.py</strong> creates a smaller sample from the NYC.osm file</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[316]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
@@ -11951,10 +12035,11 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 <span class="n">k</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Parameter: take every k-th top level element</span>
 
 <span class="k">def</span> <span class="nf">get_element</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;way&#39;</span><span class="p">,</span> <span class="s1">&#39;relation&#39;</span><span class="p">)):</span>
+    
     <span class="sd">&quot;&quot;&quot;Yield element if it is the right type of tag</span>
-
 <span class="sd">    Reference:</span>
-<span class="sd">    http://stackoverflow.com/questions/3095434/inserting-newlines-in-xml-file-generated-via-xml-etree-elementtree-in-python</span>
+<span class="sd">    http://stackoverflow.com/questions/3095434/inserting-newlines-in-xml-file-generated-via-xml-etree-</span>
+<span class="sd">    elementtree-in-python</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)))</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -11984,9 +12069,29 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After reading through the OpenStreetMap Wiki I learned that data primitives for this data are nodes, ways, and relations.</p>
+<p>For the purposes of this project, I will be looking at the node and way tags of this data set. Nodes are defined as a single point in space and is defined by longitude, latitude, and node id. Ways are an ordered list of nodes that either define a region, closed node, or some linear feature, open node.</p>
+<h3 id="Auditing-the-k-Tags">Auditing the k Tags<a class="anchor-link" href="#Auditing-the-k-Tags">&#182;</a></h3><p>Another area of interest was looking at the different 'k' tags in the data. I used three regular expressions to filter these tags and look for any problems that might have to be remedied before importing the data into a database. The first looks for tags with only lowercase letters, the second for lowercase letters separated by a colon, and the last flags any unwanted characters.</p>
+<p>As we can see, the major elements are member, nd, node, relation, tag and way. We will audit these elements, clean them and store them in csv in order to be stored in SQLLITE</p>
+<p>Now, we want to check whether "k" value for each "&lt; tag &gt;" has any issue or not. To see this, we divided the key type in four categories:
+•"lower", for tags that contain only lowercase letters and are valid 
+•"lower_colon", for otherwise valid tags with a colon in their names 
+•"problemchars", for tags with problematic characters, and
+•"other", for other tags that do not fall into the other three categories.
+I then used the iterparse method of ElementTree to compile a list of tags that fell into one of the three regular expression matches above.</p>
+<p>We check this using the regex expressions and write in a separate file. Then we write the unique key tags belonging to each category in the respective file for later observation.</p>
+<p>The <strong>keytypes.py</strong> script parses and audits the file and the output is displayed below.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[261]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -12033,10 +12138,7 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 
 
 <span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
-    <span class="c1"># You can use another testfile &#39;map.osm&#39; to look at your solution</span>
-    <span class="c1"># Note that the assertion below will be incorrect then.</span>
-    <span class="c1"># Note as well that the test function here is only used in the Test Run;</span>
-    <span class="c1"># when you submit, your code will be checked against a different dataset.</span>
+    
     <span class="n">keys</span> <span class="o">=</span> <span class="n">process_map1</span><span class="p">(</span><span class="s1">&#39;NYC.osm&#39;</span><span class="p">)</span>
     <span class="n">write_data</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="s1">&#39;lower.txt&#39;</span><span class="p">)</span>
     <span class="n">write_data</span><span class="p">(</span><span class="n">lo_co</span><span class="p">,</span> <span class="s1">&#39;lower_colon.txt&#39;</span><span class="p">)</span>
@@ -12083,14 +12185,14 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 <p>•There was a postal code like just 83
 •The 'k' tags did not follow a specific format. Many similar tags were referenced by different names. Also, many tags had only been used once.
 •Duplicate entries existed  for some of the tags. This is due to two different data sources, Topologically Integrated Geographic Encoding and Referencing system (TIGER) and USGS Geographic Names Information System (GNIS)</p>
-<h3 id="Cleaning-Street-Names">Cleaning Street Names<a class="anchor-link" href="#Cleaning-Street-Names">&#182;</a></h3><p>The first part of the data that I cleaned was the abbreviated street names. To start I parsed through the way tags and return street names that were uncommon, according to a predefined list that I created.</p>
+<h3 id="Cleaning-Street-Names">Cleaning Street Names<a class="anchor-link" href="#Cleaning-Street-Names">&#182;</a></h3><p>The first part of the data that I cleaned was the abbreviated street names. To start I parsed through the way tags and return street names that were uncommon, according to a predefined list that I created. I have used the <strong>CleanStreetNames.py</strong>  for cleaning and displaying the corrected street names.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[270]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -12109,7 +12211,8 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="n">OSMFILE</span> <span class="o">=</span> <span class="s2">&quot;NYC.osm&quot;</span>
+<span class="c1">#OSMFILE = &quot;NYC.osm&quot;</span>
+<span class="n">OSMFILE</span> <span class="o">=</span> <span class="s2">&quot;sample.osm&quot;</span>
 <span class="n">street_type_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\S+\.?$&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
 <span class="n">st_types</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
 <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Street&quot;</span><span class="p">,</span> <span class="s2">&quot;Avenue&quot;</span><span class="p">,</span> <span class="s2">&quot;Boulevard&quot;</span><span class="p">,</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span> <span class="s2">&quot;Court&quot;</span><span class="p">,</span> <span class="s2">&quot;Place&quot;</span><span class="p">,</span> <span class="s2">&quot;Square&quot;</span><span class="p">,</span> <span class="s2">&quot;Lane&quot;</span><span class="p">,</span> <span class="s2">&quot;Road&quot;</span><span class="p">,</span> 
@@ -12195,7 +12298,7 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 <span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
     <span class="n">st_types</span> <span class="o">=</span> <span class="n">audit</span><span class="p">(</span><span class="n">OSMFILE</span><span class="p">)</span>
     <span class="c1">#assert len(st_types) == 3</span>
-    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">st_types</span><span class="p">))</span>
+    <span class="c1">#pprint.pprint(dict(st_types))</span>
 
     <span class="k">for</span> <span class="n">st_type</span><span class="p">,</span> <span class="n">ways</span> <span class="ow">in</span> <span class="n">st_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ways</span><span class="p">:</span>
@@ -12205,7 +12308,7 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 
 
 
-    <span class="n">test</span><span class="p">()</span>
+<span class="n">test</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -12222,205 +12325,24 @@ I then used the iterparse method of ElementTree to compile a list of tags that f
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;1&#39;: {&#39;36th St Front 1&#39;},
- &#39;10003&#39;: {&#39;Irvine Place, #1, New York, NY, 10003&#39;},
- &#39;109&#39;: {&#39;Central Park South Suite 109&#39;},
- &#39;1801&#39;: {&#39;505th 8th Avenue Suite 1801&#39;},
- &#39;1807&#39;: {&#39;5th AVE 1807&#39;},
- &#39;21G&#39;: {&#39;East 80th Street, 21G&#39;},
- &#39;27th&#39;: {&#39;W 27th&#39;},
- &#39;29th&#39;: {&#39;29th&#39;},
- &#39;2N&#39;: {&#39;400th West 20th St., Suite 2N&#39;},
- &#39;3&#39;: {&#39;Irving Place #3&#39;},
- &#39;301&#39;: {&#39;E 55th St Ste. 301&#39;},
- &#39;306&#39;: {&#39;West 30th Street Suite 306&#39;},
- &#39;42nd&#39;: {&#39;West 42nd&#39;},
- &#39;4B&#39;: {&#39;Union Avenue 4B&#39;},
- &#39;500&#39;: {&#39;Main St., Suite 500&#39;},
- &#39;633&#39;: {&#39;633&#39;},
- &#39;861&#39;: {&#39;861&#39;},
- &#39;A&#39;: {&#39;Avenue A&#39;},
- &#39;Atrium&#39;: {&#39;Broadway Atrium&#39;},
- &#39;Ave&#39;: {&#39;Norman Ave&#39;, &#39;Union Ave&#39;, &#39;10th Ave&#39;, &#39;Third Ave&#39;},
- &#39;Avene&#39;: {&#39;Madison Avene&#39;, &#39;8th Avene&#39;},
- &#39;B&#39;: {&#39;Avenue B&#39;},
- &#39;Blvd&#39;: {&#39;Vernon Blvd&#39;},
- &#39;Broadway.&#39;: {&#39;Broadway.&#39;},
- &#39;Brooklyn&#39;: {&#39;334 Furman St, Brooklyn&#39;},
- &#39;Bushwick&#39;: {&#39;Bushwick&#39;},
- &#39;C&#39;: {&#39;Avenue C&#39;},
- &#39;Center&#39;: {&#39;World Financial Center&#39;, &#39;Gotham Center&#39;, &#39;World Trade Center&#39;},
- &#39;D&#39;: {&#39;Avenue D&#39;},
- &#39;Finest&#39;: {&#39;Avenue Of The Finest&#39;},
- &#39;Floor&#39;: {&#39;Madison Avenue, 15th Floor&#39;, &#39;Wall Street 12th Floor&#39;},
- &#39;Floor)&#39;: {&#39;Manhattan Avenue (2nd Floor)&#39;},
- &#39;Fulton&#39;: {&#39;Old Fulton&#39;},
- &#39;Heights&#39;: {&#39;Columbia Heights&#39;},
- &#39;Highline&#39;: {&#39;Highline&#39;},
- &#39;Lafayette&#39;: {&#39;Lafayette&#39;},
- &#39;Level&#39;: {&#39;Madison Ave Arcage Level&#39;},
- &#39;Macdougal&#39;: {&#39;Macdougal&#39;},
- &#39;NY&#39;: {&#39;405 West 23rd Street, New York, NY&#39;,
-        &#39;54th W 39th St New York, NY&#39;,
-        &#39;West 49th Street New York NY&#39;},
- &#39;Oval&#39;: {&#39;Stuyvesant Oval&#39;},
- &#39;Piers&#39;: {&#39;Northside Piers&#39;, &#39;Chelsea Piers&#39;},
- &#39;Rd&#39;: {&#39;43rd Rd&#39;},
- &#39;Rico&#39;: {&#39;Avenue Of Puerto Rico&#39;},
- &#39;Roadbed&#39;: {&#39;Delancey Street Eb Roadbed&#39;},
- &#39;S&#39;: {&#39;Central Park S&#39;, &#39;Park Ave S&#39;, &#39;Park Avenue S&#39;},
- &#39;ST&#39;: {&#39;110 SIXTH AVE. AT WATTS ST&#39;, &#39;N 9th ST&#39;},
- &#39;Slip&#39;: {&#39;Catherine Slip&#39;,
-          &#39;Coenties Slip&#39;,
-          &#39;Old Slip&#39;,
-          &#39;Peck Slip&#39;,
-          &#39;Pike Slip&#39;,
-          &#39;Rutgers Slip&#39;},
- &#39;St&#39;: {&#39;205 W 58th St&#39;,
-        &#39;330 E 84th St&#39;,
-        &#39;362nd Grand St&#39;,
-        &#39;56th St&#39;,
-        &#39;Broad St&#39;,
-        &#39;E 43rd St&#39;,
-        &#39;E Houston St&#39;,
-        &#39;East Houston St&#39;,
-        &#39;Hewes St&#39;,
-        &#39;Hudson St&#39;,
-        &#39;Jackson St&#39;,
-        &#39;Mott St&#39;,
-        &#39;N 7th St&#39;,
-        &#39;State St &amp; Water St&#39;,
-        &#39;W 26th St&#39;,
-        &#39;W 35th St&#39;,
-        &#39;W 36th St&#39;,
-        &#39;W 57th St&#39;,
-        &#39;West 32nd St&#39;,
-        &#39;West 37 St&#39;,
-        &#39;Wooster St&#39;},
- &#39;St.&#39;: {&#39;13th St.&#39;,
-         &#39;Devoe St.&#39;,
-         &#39;E. 54th St.&#39;,
-         &#39;East 73rd St.&#39;,
-         &#39;East 86th St.&#39;,
-         &#39;South 4th St.&#39;,
-         &#39;West 44th St.&#39;},
- &#39;Steet&#39;: {&#39;West 25th Steet&#39;, &#39;West 8th Steet&#39;},
- &#39;Terminal&#39;: {&#39;Grand Central Terminal&#39;},
- &#39;Track&#39;: {&#39;Track&#39;},
- &#39;Unidos&#39;: {&#39;519 9th Ave, New York, NY 10018, Estados Unidos&#39;},
- &#39;Uniti&#39;: {&#39;3rd Ave, New York, NY 10028, Stati Uniti&#39;},
- &#39;Warren&#39;: {&#39;Warren&#39;},
- &#39;Yards&#39;: {&#39;Hudson Yards&#39;},
- &#39;ave&#39;: {&#39;10th ave&#39;, &#39;11th ave&#39;, &#39;110 West 51st at 6 ave&#39;, &#39;5th ave&#39;},
- &#39;st&#39;: {&#39;grand st&#39;, &#39;W 35th st&#39;, &#39;South 4th st&#39;}}
-grand st =&gt; grand Street
-W 35th st =&gt; West 35th Street
-South 4th st =&gt; South 4th Street
-Avenue C =&gt; Avenue C
-E. 54th St. =&gt; E. 54th Street
-13th St. =&gt; 13th Street
-East 86th St. =&gt; East 86th Street
-East 73rd St. =&gt; East 73rd Street
-South 4th St. =&gt; South 4th Street
-West 44th St. =&gt; West 44th Street
-Devoe St. =&gt; Devoe Street
-10th ave =&gt; 10th Avenue
-11th ave =&gt; 11th Avenue
-110 West 51st at 6 ave =&gt; 110 West 51st at 6 Avenue
-5th ave =&gt; 5th Avenue
-West 42nd =&gt; West 42nd
-Central Park S =&gt; Central Park South
-Park Ave S =&gt; Park Avenue South
-Park Avenue S =&gt; Park Avenue South
-West 25th Steet =&gt; West 25th Street
-West 8th Steet =&gt; West 8th Street
-400th West 20th St., Suite 2N =&gt; 400th West 20th St., Suite 2N
-Avenue D =&gt; Avenue D
-West 49th Street New York NY =&gt; West 49th Street New York NY
-54th W 39th St New York, NY =&gt; 54th West 39th Street New York, NY
-405 West 23rd Street, New York, NY =&gt; 405 West 23rd Street, New York, NY
-W 27th =&gt; West 27th
+<pre>Avenue C =&gt; Avenue C
 Madison Avene =&gt; Madison Avenue
-8th Avene =&gt; 8th Avenue
-Avenue B =&gt; Avenue B
 Avenue A =&gt; Avenue A
-Main St., Suite 500 =&gt; Main St., Suite 500
-Columbia Heights =&gt; Columbia Heights
-Delancey Street Eb Roadbed =&gt; Delancey Street Eb Roadbed
-Irving Place #3 =&gt; Irving Place #3
-505th 8th Avenue Suite 1801 =&gt; 505th 8th Avenue Suite 1801
-State St &amp; Water St =&gt; State Street &amp; Water Street
-Mott St =&gt; Mott Street
-W 57th St =&gt; West 57th Street
-Broad St =&gt; Broad Street
-Jackson St =&gt; Jackson Street
-56th St =&gt; 56th Street
-205 W 58th St =&gt; 205 West 58th Street
-Hewes St =&gt; Hewes Street
-330 E 84th St =&gt; 330 East 84th Street
-362nd Grand St =&gt; 362nd Grand Street
-West 37 St =&gt; West 37 Street
-W 36th St =&gt; West 36th Street
-W 26th St =&gt; West 26th Street
-E Houston St =&gt; East Houston Street
-E 43rd St =&gt; East 43rd Street
-West 32nd St =&gt; West 32nd Street
-East Houston St =&gt; East Houston Street
-Wooster St =&gt; Wooster Street
-Hudson St =&gt; Hudson Street
-W 35th St =&gt; West 35th Street
-N 7th St =&gt; North 7th Street
-29th =&gt; 29th
+Avenue B =&gt; Avenue B
+Avenue D =&gt; Avenue D
 Macdougal =&gt; Macdougal
-World Financial Center =&gt; World Financial Center
-Gotham Center =&gt; Gotham Center
-World Trade Center =&gt; World Trade Center
-Warren =&gt; Warren
-Pike Slip =&gt; Pike Slip
 Coenties Slip =&gt; Coenties Slip
-Old Slip =&gt; Old Slip
-Rutgers Slip =&gt; Rutgers Slip
 Catherine Slip =&gt; Catherine Slip
 Peck Slip =&gt; Peck Slip
-Broadway Atrium =&gt; Broadway Atrium
-West 30th Street Suite 306 =&gt; West 30th Street Suite 306
-Avenue Of The Finest =&gt; Avenue Of The Finest
+Old Slip =&gt; Old Slip
 Avenue Of Puerto Rico =&gt; Avenue Of Puerto Rico
-Union Avenue 4B =&gt; Union Avenue 4B
-Bushwick =&gt; Bushwick
-861 =&gt; 861
-Norman Ave =&gt; Norman Avenue
-Union Ave =&gt; Union Avenue
-10th Ave =&gt; 10th Avenue
-Third Ave =&gt; Third Avenue
-Manhattan Avenue (2nd Floor) =&gt; Manhattan Avenue (2nd Floor)
 Old Fulton =&gt; Old Fulton
-Track =&gt; Track
 Stuyvesant Oval =&gt; Stuyvesant Oval
-Highline =&gt; Highline
-Madison Avenue, 15th Floor =&gt; Madison Avenue, 15th Floor
-Wall Street 12th Floor =&gt; Wall Street 12th Floor
-519 9th Ave, New York, NY 10018, Estados Unidos =&gt; 519 9th Ave, New York, NY 10018, Estados Unidos
-3rd Ave, New York, NY 10028, Stati Uniti =&gt; 3rd Ave, New York, NY 10028, Stati Uniti
-Broadway. =&gt; Broadway.
+W 35th St =&gt; West 35th Street
+56th St =&gt; 56th Street
+205 W 58th St =&gt; 205 West 58th Street
 5th AVE 1807 =&gt; 5th AVE 1807
-East 80th Street, 21G =&gt; East 80th Street, 21G
-Madison Ave Arcage Level =&gt; Madison Avenue Arcage Level
-Lafayette =&gt; Lafayette
 Central Park South Suite 109 =&gt; Central Park South Suite 109
-E 55th St Ste. 301 =&gt; East 55th Street Ste. 301
-Hudson Yards =&gt; Hudson Yards
-36th St Front 1 =&gt; 36th Street Front 1
-334 Furman St, Brooklyn =&gt; 334 Furman St, Brooklyn
-110 SIXTH AVE. AT WATTS ST =&gt; 110 SIXTH AVE. AT WATTS Street
-N 9th ST =&gt; North 9th Street
-Vernon Blvd =&gt; Vernon Blvd
-Irvine Place, #1, New York, NY, 10003 =&gt; Irvine Place, #1, New York, NY, 10003
-Northside Piers =&gt; Northside Piers
-Chelsea Piers =&gt; Chelsea Piers
-633 =&gt; 633
-43rd Rd =&gt; 43rd Rd
-Grand Central Terminal =&gt; Grand Central Terminal
 </pre>
 </div>
 </div>
@@ -12433,14 +12355,14 @@ Grand Central Terminal =&gt; Grand Central Terminal
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-Postal-Codes">Cleaning Postal Codes<a class="anchor-link" href="#Cleaning-Postal-Codes">&#182;</a></h3><p>Another problem that I noticed while parsing through the data was that the postal codes were presented in different ways. Below is an excerpt of some of the different formats for postal codes.</p>
+<h3 id="Cleaning-Postal-Codes">Cleaning Postal Codes<a class="anchor-link" href="#Cleaning-Postal-Codes">&#182;</a></h3><p>Another problem that I noticed while parsing through the data was that the postal codes were presented in different ways. Below is an excerpt of some of the different formats for postal codes. The code for this process can be found in  <strong>CleanPostalCodes.py</strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[232]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">is_zip_code</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
@@ -12450,7 +12372,6 @@ Grand Central Terminal =&gt; Grand Central Terminal
     <span class="n">osm_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">osmfile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
     <span class="n">prob_zip</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,)):</span>
-
         <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;way&quot;</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">is_zip_code</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
@@ -12467,10 +12388,10 @@ Grand Central Terminal =&gt; Grand Central Terminal
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
                         <span class="n">prob_zip</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span>
     <span class="n">osm_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">prob_zip</span>
+    <span class="c1">#return prob_zip</span>
 
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Possible problematic zip codes:&quot;</span><span class="p">)</span>
-<span class="n">audit_zip</span><span class="p">(</span><span class="s1">&#39;NYC.osm&#39;</span><span class="p">)</span>
+<span class="n">audit_zip</span><span class="p">(</span><span class="s1">&#39;sample.osm&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12488,118 +12409,10 @@ Grand Central Terminal =&gt; Grand Central Terminal
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Possible problematic zip codes:
-
-
-Fixed Zip:    10020-2402 =&gt; 10020
-Fixed Zip:    NY 11201 =&gt; 11201
-Fixed Zip:    10011-6832 =&gt; 10011
-Fixed Zip:    NY 10012 =&gt; 10012
-Fixed Zip:    NY 10002 =&gt; 10002
-Fixed Zip:    NY 10111 =&gt; 10111
-Fixed Zip:    10012-3332 =&gt; 10012
-Fixed Zip:    NY 10075 =&gt; 10075
-Fixed Zip:    10018-4527 =&gt; 10018
-Fixed Zip:    NY 10075 =&gt; 10075
-Fixed Zip:    10016-0122 =&gt; 10016
-Fixed Zip:    NY 10036 =&gt; 10036
 Fixed Zip:    NY 10011 =&gt; 10011
-Fixed Zip:    100014 =&gt; 10001
-Fixed Zip:    NY 10003 =&gt; 10003
-Fixed Zip:    NY 10003 =&gt; 10003
-Fixed Zip:    10017-6927 =&gt; 10017
-Fixed Zip:    NY 11201 =&gt; 11201
-Fixed Zip:    10075-0381 =&gt; 10075
-Fixed Zip:    NY 10003 =&gt; 10003
-Fixed Zip:    NY 10036 =&gt; 10036
-Fixed Zip:    NY 10036 =&gt; 10036
-Fixed Zip:    NY 10036 =&gt; 10036
 Fixed Zip:    NY 10007 =&gt; 10007
-Fixed Zip:    NY  10011 =&gt; 10011
-Fixed Zip:    NY 10011 =&gt; 10011
-Fixed Zip:    NY 10001 =&gt; 10001
-Fixed Zip:    10001-2062 =&gt; 10001
-Fixed Zip:    10019-9998 =&gt; 10019
-Fixed Zip:    NY 10016 =&gt; 10016
-Fixed Zip:    New York, NY 10065 =&gt; 10065
-Fixed Zip:    10002-1013 =&gt; 10002
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[232]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;07086&#39;,
- &#39;10001&#39;,
- &#39;10002&#39;,
- &#39;10003&#39;,
- &#39;10004&#39;,
- &#39;10005&#39;,
- &#39;10006&#39;,
- &#39;10007&#39;,
- &#39;10009&#39;,
- &#39;10010&#39;,
- &#39;10011&#39;,
- &#39;10012&#39;,
- &#39;10013&#39;,
- &#39;10014&#39;,
- &#39;10016&#39;,
- &#39;10017&#39;,
- &#39;10018&#39;,
- &#39;10019&#39;,
- &#39;10020&#39;,
- &#39;10021&#39;,
- &#39;10022&#39;,
- &#39;10023&#39;,
- &#39;10028&#39;,
- &#39;10036&#39;,
- &#39;10038&#39;,
- &#39;10044&#39;,
- &#39;10045&#39;,
- &#39;10048&#39;,
- &#39;10055&#39;,
- &#39;10065&#39;,
- &#39;10069&#39;,
- &#39;10075&#39;,
- &#39;10103&#39;,
- &#39;10107&#39;,
- &#39;10110&#39;,
- &#39;10111&#39;,
- &#39;10112&#39;,
- &#39;10118&#39;,
- &#39;10121&#39;,
- &#39;10123&#39;,
- &#39;10128&#39;,
- &#39;10152&#39;,
- &#39;10153&#39;,
- &#39;10154&#39;,
- &#39;10155&#39;,
- &#39;10168&#39;,
- &#39;10169&#39;,
- &#39;10173&#39;,
- &#39;10174&#39;,
- &#39;10271&#39;,
- &#39;10275&#39;,
- &#39;10280&#39;,
- &#39;10281&#39;,
- &#39;10282&#39;,
- &#39;11101&#39;,
- &#39;11106&#39;,
- &#39;11109&#39;,
- &#39;11201&#39;,
- &#39;11206&#39;,
- &#39;11211&#39;,
- &#39;11222&#39;,
- &#39;11226&#39;,
- &#39;11249&#39;,
- &#39;11251&#39;}</pre>
-</div>
-
 </div>
 
 </div>
@@ -12610,17 +12423,51 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Functions to update  and correct the  abbreviated street names and postal codes before uploading into csv files to load into the sqllite database</strong></p>
+<p>I have created Functions to update  and correct the  abbreviated street names and postal codes before uploading into csv files to load into the sqllite database. This functions are found in the python file <strong>update_element.py</strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[150]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fix_element</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fix_street</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+    <span class="n">street_types</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;way&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">is_street_name</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+                <span class="n">audit_street_type</span><span class="p">(</span><span class="n">street_types</span><span class="p">,</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">st_type</span><span class="p">,</span> <span class="n">ways</span> <span class="ow">in</span> <span class="n">street_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ways</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="n">n</span> <span class="o">=</span> <span class="n">street_type_re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">n</span><span class="p">:</span>
+                                <span class="n">street_type</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+                                <span class="k">if</span> <span class="n">street_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected</span><span class="p">:</span>
+                                    <span class="k">if</span> <span class="n">street_type</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+                                        <span class="n">better_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="n">better_name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
+                                            <span class="c1">#print (&quot;Fixed Street:&quot;, tag.attrib[&#39;v&#39;], &quot;=&gt;&quot;, better_name)</span>
+                                            <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">better_name</span>
+                                            <span class="k">return</span>
+    <span class="c1"># Fix Zip Codes:</span>
+
+<span class="k">def</span> <span class="nf">fix_zip</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;way&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">is_zip_code</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;N&#39;</span><span class="p">:</span>
+                        <span class="c1">#print (&quot;Fixed Zip:   &quot;, tag.attrib[&#39;v&#39;], &quot;=&gt;&quot;, tag.attrib[&#39;v&#39;][-5:])</span>
+                        <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1">#print (&quot;Fixed Zip:   &quot;, tag.attrib[&#39;v&#39;], &quot;=&gt;&quot;, tag.attrib[&#39;v&#39;][0:5])</span>
+                        <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+                            
+                            
+<span class="k">def</span> <span class="nf">fix_element</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
     
     <span class="c1"># Fix Street Names:</span>
 
@@ -12645,42 +12492,6 @@ Fixed Zip:    10002-1013 =&gt; 10002
             <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;North&quot;</span><span class="p">,</span>
             <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;South&quot;</span><span class="p">,</span>
             <span class="s2">&quot;E&quot;</span><span class="p">:</span> <span class="s2">&quot;East&quot;</span><span class="p">}</span>
-
-<span class="k">def</span> <span class="nf">fix_street</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
-    <span class="n">street_types</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;way&quot;</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">is_street_name</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
-                <span class="n">audit_street_type</span><span class="p">(</span><span class="n">street_types</span><span class="p">,</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">st_type</span><span class="p">,</span> <span class="n">ways</span> <span class="ow">in</span> <span class="n">street_types</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-                    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ways</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                            <span class="n">n</span> <span class="o">=</span> <span class="n">street_type_re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                            <span class="k">if</span> <span class="n">n</span><span class="p">:</span>
-                                <span class="n">street_type</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
-                                <span class="k">if</span> <span class="n">street_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expected</span><span class="p">:</span>
-                                    <span class="k">if</span> <span class="n">street_type</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
-                                        <span class="n">better_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
-                                        <span class="k">if</span> <span class="n">better_name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
-                                            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Fixed Street:&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">],</span> <span class="s2">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="n">better_name</span><span class="p">)</span>
-                                            <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">better_name</span>
-                                            <span class="k">return</span>
-    <span class="c1"># Fix Zip Codes:</span>
-
-<span class="k">def</span> <span class="nf">fix_zip</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;way&quot;</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">is_zip_code</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;N&#39;</span><span class="p">:</span>
-                        <span class="c1">#print (&quot;Fixed Zip:   &quot;, tag.attrib[&#39;v&#39;], &quot;=&gt;&quot;, tag.attrib[&#39;v&#39;][-5:])</span>
-                        <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="c1">#print (&quot;Fixed Zip:   &quot;, tag.attrib[&#39;v&#39;], &quot;=&gt;&quot;, tag.attrib[&#39;v&#39;][0:5])</span>
-                        <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-                            
-                            
-
     <span class="n">fix_street</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
     <span class="n">fix_zip</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
    
@@ -12697,13 +12508,15 @@ Fixed Zip:    10002-1013 =&gt; 10002
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Importing-Dataset-to-Database">Importing Dataset to Database<a class="anchor-link" href="#Importing-Dataset-to-Database">&#182;</a></h3><p>After performing the most of the cleaning through Python, I can store the dataset in the database to examine the PROBLEMATIC elements and explore it further.
  I am using sqllite to present a generic solution . Initially, I am exporting the data in .csv files using the schema below, creating the tables in sqllite database  and importing the .csvs.</p>
-<h3 id="Exporting-dataset-to-.CSVs">Exporting dataset to .CSVs<a class="anchor-link" href="#Exporting-dataset-to-.CSVs">&#182;</a></h3>
+<p>The code for this process can be found at <strong>upload_data_csv.py</strong> and the schema for the format at <strong>schema.py</strong>.</p>
+<h3 id="Exporting-dataset-to-.CSVs">Exporting dataset to .CSVs<a class="anchor-link" href="#Exporting-dataset-to-.CSVs">&#182;</a></h3><p>process_map('sample.osm', validate=True)</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[186]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">SCHEMA</span> <span class="o">=</span> <span class="p">{</span>
@@ -12776,7 +12589,7 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[256]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the files</span>
@@ -12806,7 +12619,7 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[257]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">shape_element</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
@@ -12885,7 +12698,7 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[212]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_element</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;node&#39;</span><span class="p">,</span> <span class="s1">&#39;way&#39;</span><span class="p">,</span> <span class="s1">&#39;relation&#39;</span><span class="p">)):</span>
@@ -12906,7 +12719,7 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[250]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">validate_element</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">validator</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">SCHEMA</span><span class="p">):</span>
@@ -12927,21 +12740,18 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[207]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">UnicodeDictWriter</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Extend csv.DictWriter to handle Unicode input&quot;&quot;&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">UnicodeDictWriter</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> 
+ <span class="sd">&quot;&quot;&quot;Extend csv.DictWriter to handle Unicode input&quot;&quot;&quot;</span> 
 
-    <span class="k">def</span> <span class="nf">writerow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">UnicodeDictWriter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">writerow</span><span class="p">({</span>
-            <span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="p">})</span>
-
-    <span class="k">def</span> <span class="nf">writerows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">writerow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">UnicodeDictWriter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">writerow</span><span class="p">({</span><span class="n">k</span><span class="p">:(</span><span class="n">v</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span> 
+         
+<span class="k">def</span> <span class="nf">writerows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span> 
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> 
 </pre></div>
 
 </div>
@@ -12951,17 +12761,17 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[248]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">process_map</span><span class="p">(</span><span class="n">file_in</span><span class="p">,</span> <span class="n">validate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Iteratively process each XML element and write to csv(s)&quot;&quot;&quot;</span>
 
-    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">NODES_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nodes_file</span><span class="p">,</span> \
-         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">NODE_TAGS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nodes_tags_file</span><span class="p">,</span> \
-         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAYS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ways_file</span><span class="p">,</span> \
-         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAY_NODES_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">way_nodes_file</span><span class="p">,</span> \
-         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAY_TAGS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">way_tags_file</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">NODES_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nodes_file</span><span class="p">,</span> \
+         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">NODE_TAGS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nodes_tags_file</span><span class="p">,</span> \
+         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAYS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ways_file</span><span class="p">,</span> \
+         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAY_NODES_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">way_nodes_file</span><span class="p">,</span> \
+         <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">WAY_TAGS_PATH</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">way_tags_file</span><span class="p">:</span>
 
         <span class="n">nodes_writer</span> <span class="o">=</span> <span class="n">UnicodeDictWriter</span><span class="p">(</span><span class="n">nodes_file</span><span class="p">,</span> <span class="n">NODE_FIELDS</span><span class="p">)</span>
         <span class="n">node_tags_writer</span> <span class="o">=</span> <span class="n">UnicodeDictWriter</span><span class="p">(</span><span class="n">nodes_tags_file</span><span class="p">,</span> <span class="n">NODE_TAGS_FIELDS</span><span class="p">)</span>
@@ -13001,10 +12811,10 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[262]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">process_map</span><span class="p">(</span><span class="s1">&#39;NYC.osm&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">process_map</span><span class="p">(</span><span class="s1">&#39;sample.osm&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13016,8 +12826,21 @@ Fixed Zip:    10002-1013 =&gt; 10002
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The csv files generated are imported into the sqllite database names nycosmdata.db
+<h3 id="SQL-Exploration">SQL Exploration<a class="anchor-link" href="#SQL-Exploration">&#182;</a></h3><p>The csv files generated are imported into the sqllite database names nycosmdata.db
 Now let us explore our data more using SQL.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="import-SQLLITE-to-explore-the-data-loaded-from-csv-files-into-nycosmdata.db">import SQLLITE to explore the data loaded from csv files into nycosmdata.db<a class="anchor-link" href="#import-SQLLITE-to-explore-the-data-loaded-from-csv-files-into-nycosmdata.db">&#182;</a></h1><p>import pandas as pd<br>
+import sqlite3<br>
+conn = sqlite3.connect("nycosmdata.db")<br>
+df = pd.read_sql_query("select * from nodes limit 5;", conn)<br>
+df</p>
 
 </div>
 </div>
@@ -13145,6 +12968,24 @@ Now let us explore our data more using SQL.</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Letus check the number of rows in each table</strong></p>
+<p>conn = sqlite3.connect("nycosmdata.db")<br>
+cur = conn.cursor()<br>
+counts = cur.execute("""select count(<em>)||'  nodes' from nodes union<br>
+                        Select count(</em>)||'   nodes_tags' from nodes_tags union <br>
+                        Select count(<em>)||'   ways' from ways union<br>
+                        Select count(</em>)||'   ways_nodes' from ways_nodes union<br>
+                        Select count(*)||'   ways_tags' from ways_tags<br>
+    ;""").fetchall()<br>
+pprint.pprint(counts)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[298]:</div>
@@ -13191,6 +13032,18 @@ Now let us explore our data more using SQL.</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Number of unique users:</strong></p>
+<p>no_of_users = cur.execute("""SELECT COUNT(DISTINCT(users.uid))<br>
+FROM (SELECT uid FROM nodes UNION ALL SELECT uid FROM ways) users;""").fetchall()<br>
+print(no_of_users)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[297]:</div>
@@ -13225,6 +13078,23 @@ Now let us explore our data more using SQL.</p>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Top 10 users</strong></p>
+<p>Top_10_users = cur.execute("""SELECT nodes_ways."user" AS "User", COUNT(*) AS "Users"<br>
+FROM (SELECT "user" FROM nodes<br>
+      UNION ALL<br>
+      SELECT "user" FROM ways) AS nodes_ways<br>
+GROUP BY nodes_ways."user"<br>
+ORDER BY "Users" DESC<br>
+LIMIT 10;""").fetchall()<br>
+pprint.pprint(Top_10_users)</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -13275,6 +13145,24 @@ Now let us explore our data more using SQL.</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Top 10 zip codes</strong></p>
+<p>top_zip_codes = cur.execute("""SELECT tags.value, COUNT(<em>) as count<br> 
+FROM (SELECT </em> FROM nodes_tags<br> 
+      UNION ALL<br> 
+      SELECT * FROM ways_tags) tags<br>
+WHERE tags.key='postcode'<br>
+GROUP BY tags.value<br>
+ORDER BY count DESC<br>
+LIMIT 10;""").fetchall()<br>
+pprint.pprint(top_zip_codes)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[296]:</div>
@@ -13324,6 +13212,27 @@ Now let us explore our data more using SQL.</p>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Top amenities in NYC</strong></p>
+<p>top_amenities = cur.execute("""SELECT value AS "Amenity",<br> 
+COUNT(value) AS "Occurrences"<br>
+FROM(SELECT <em><br>
+FROM nodes_tags<br>
+UNION ALL<br>
+SELECT </em><br>
+FROM nodes_tags) as tags<br>
+WHERE key = 'amenity'<br>
+GROUP BY value<br>
+ORDER BY "Occurrences" DESC<br>
+LIMIT 10""").fetchall()<br>
+pprint.pprint(top_amenities)</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -13387,6 +13296,23 @@ Now let us explore our data more using SQL.</p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Top Banks</strong></p>
+<p>top_banks = cur.execute(""" SELECT value AS "Bank", COUNT(value) AS "ATMs"<br>
+FROM (Select <em> from nodes_tags union select </em> from ways_tags)<br>
+       WHERE id in(SELECT id from (Select <em> from nodes_tags<br>
+                   union select </em> from ways_tags)<br>
+                    WHERE upper(value) = 'ATM' or upper(value) = 'BANK')<br>
+       AND  upper(key) in ('NAME','OPERATOR')<br>
+       GROUP BY value ORDER BY "ATMs" DESC LIMIT 10;""").fetchall()<br>
+pprint.pprint(top_banks)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[309]:</div>
@@ -13434,6 +13360,22 @@ Now let us explore our data more using SQL.</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Number of cafes, hotels, pubs, and restaurants:</strong></p>
+<p>top_restaurants = cur.execute("""SELECT value, COUNT(<em>)<br>
+FROM (SELECT </em> from nodes_tags as T UNION ALL <br>
+      SELECT * from ways_tags as Z) as Q<br>
+WHERE (value = 'restaurant' OR value = 'hotel' OR 
+       value = 'pub' OR value = 'cafe')<br>
+GROUP BY value """).fetchall()<br>
+pprint.pprint(top_restaurants)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[306]:</div>
@@ -13473,12 +13415,28 @@ Now let us explore our data more using SQL.</p>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>#Top types of cusines in NYC</strong></p>
+<p>top_cusines = cur.execute("""SELECT value, COUNT(<em>)<br>
+FROM (SELECT </em> from nodes_tags as T UNION ALL<br> 
+      SELECT * from ways_tags as Z) as Q<br>
+WHERE (key = 'cuisine') group by value ORDER BY 2 DESC LIMIT 10;""").fetchall()<br>
+pprint.pprint(top_cusines)</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[301]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top_cusines</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT value, COUNT(*)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Top types of cusines in NYC</span>
+
+<span class="n">top_cusines</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT value, COUNT(*)</span>
 <span class="s2">FROM (SELECT * from nodes_tags as T UNION ALL </span>
 <span class="s2">      SELECT * from ways_tags as Z) as Q</span>
 <span class="s2">WHERE (key = &#39;cuisine&#39;) group by value ORDER BY 2 DESC LIMIT 10;&quot;&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
@@ -13532,6 +13490,7 @@ Now let us explore our data more using SQL.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Additional-Ideas">Additional Ideas<a class="anchor-link" href="#Additional-Ideas">&#182;</a></h3><p>There are several areas of improvement of the project in the future. The first one is on the completeness of the data. All the above analysis is based on a dataset that reflects a big part of Newyork city manhattab but not the whole island. The reason for this is the lack of a way to download a dataset for the entire place without including parts of the neighboring areas. The analyst has to either select a part of the city or select a wider area that includes parts of other NYC boroughs and parts of New jersey.</p>
 <p>The data could be improved by standardizing the information that is included with the node tags for place like cafe, hotel, pub, and restaurant upon data entry. Some tags give a great deal of information about the establishment while others provide very little detail. This would help to increase the quality of the openstreetmap data and enhance the consumer experience. The financial institutions are not listed with uniformity either.</p>
+<p>As the information is gathererd from several users everyone enters the data in their own way. But if more suggestions on the entry of data could be given a more comprehensive database could be collected and analyzed.</p>
 
 </div>
 </div>
@@ -13544,25 +13503,19 @@ Now let us explore our data more using SQL.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">geofabrik</span><span class="o">.</span><span class="n">de</span><span class="o">/</span><span class="n">north</span><span class="o">-</span><span class="n">america</span><span class="o">.</span><span class="n">html</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">wiki</span><span class="o">.</span><span class="n">openstreetmap</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">wiki</span><span class="o">/</span><span class="n">OSM_XML</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gist</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">carlward</span><span class="o">/</span><span class="mi">54</span><span class="n">ec1c91b62a5f911c42</span><span class="c1">#file-sample_project-md</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">YannisPap</span><span class="o">/</span><span class="n">Wrangle</span><span class="o">-</span><span class="n">OpenStreetMap</span><span class="o">-</span><span class="n">Data</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">Notebook</span><span class="o">/</span><span class="n">Wrangle</span><span class="o">-</span><span class="n">OpenStreetMap</span><span class="o">-</span><span class="n">Data</span><span class="o">.</span><span class="n">ipynb</span>
-<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">overpass</span><span class="o">-</span><span class="n">api</span><span class="o">.</span><span class="n">de</span><span class="o">/</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
-       
-    
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://download.geofabrik.de/north-america.html">https://download.geofabrik.de/north-america.html</a><br>
+<a href="https://wiki.openstreetmap.org/wiki/OSM_XML">https://wiki.openstreetmap.org/wiki/OSM_XML</a><br>
+<a href="https://gist.github.com/carlward/54ec1c91b62a5f911c42#file-sample_project-md">https://gist.github.com/carlward/54ec1c91b62a5f911c42#file-sample_project-md</a><br>
+<a href="https://github.com/YannisPap/Wrangle-OpenStreetMap-Data/blob/master/Notebook/Wrangle-OpenStreetMap-Data.ipynb">https://github.com/YannisPap/Wrangle-OpenStreetMap-Data/blob/master/Notebook/Wrangle-OpenStreetMap-Data.ipynb</a><br>
+<a href="http://overpass-api.de/">http://overpass-api.de/</a><br>
+<a href="https://www.python.org/">https://www.python.org/</a><br></p>
 
 </div>
 </div>
-</div>
-
 </div>
     </div>
   </div>
