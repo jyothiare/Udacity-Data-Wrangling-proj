@@ -34,7 +34,16 @@ mapping = { "St": "Street",
             "E": "East"}
 
 
+
 def audit_street_type(street_types, street_name):
+     """  
+         Creates a list of streets not in expected list  
+          
+         Args: 
+             street_types: Set containing unexpected stree types 
+  
+     """ 
+
     m = street_type_re.search(street_name)
     if m:
         street_type = m.group()
