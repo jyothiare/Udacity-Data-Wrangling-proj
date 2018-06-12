@@ -10,16 +10,7 @@ oth = set()
 lower = re.compile(r'^([a-z]|_)*$')
 lower_colon = re.compile(r'^([a-z]|_)*:([a-z]|_)*$')
 problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\, \t\r\n]')
-"""
-Imports element and checks for match with one of three regular expressions  
-         
-         Args: 
-             element: An element from the OpenStreetMap data 
-             keys: Dictionary to classify regular expressions 
-  
-         Returns: 
-             keys: An updated key dictionary 
-"""
+
 
 def key_type(element, keys):
     if element.tag == "tag":
